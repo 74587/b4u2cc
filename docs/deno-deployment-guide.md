@@ -68,6 +68,27 @@ deployctl deploy --project=b4u2cc-proxy deno-proxy/src/main.ts
    - 值: 您的 Deno Deploy 访问令牌
 4. 推送代码到 main 分支即可自动部署
 
+### Deno Deploy 配置文件
+
+项目使用标准的 `deno.json` 配置文件，Deno Deploy 会自动识别以下配置：
+
+```json
+{
+  "tasks": {
+    "start": "deno run --allow-net --allow-env deno-proxy/src/main.ts",
+    "dev": "deno run --allow-net --allow-env --watch deno-proxy/src/main.ts"
+  },
+  "imports": {
+    "js-tiktoken": "npm:js-tiktoken@^1.0.7"
+  }
+}
+```
+
+**重要说明**：
+- Deno Deploy 不使用自定义的 `deno.deploy.json` 文件
+- 入口点通过部署界面或 CLI 参数指定
+- 环境变量在部署时通过 UI 或 CLI 设置
+
 ### 配置环境变量
 
 在 Deno Deploy 中配置以下环境变量：
